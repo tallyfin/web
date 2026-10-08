@@ -1,0 +1,227 @@
+/* Invoice preview, shared by the on-screen preview and the generated PDF. */
+
+.pdf-preview {
+  --pdf-ink: #1b1f24;
+  --pdf-muted: #5c6670;
+  --pdf-rule: #d8dde3;
+  --pdf-accent: #2a6f97;
+  --pdf-surface: #ffffff;
+
+  box-sizing: border-box;
+  width: 210mm;
+  min-height: 297mm;
+  margin: 0 auto;
+  padding: 18mm;
+  background: var(--pdf-surface);
+  color: var(--pdf-ink);
+  font: 10pt/1.45 "Inter", -apple-system, "Segoe UI", sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+
+.pdf-preview h1,
+.pdf-preview h2,
+.pdf-preview p,
+.pdf-preview dl,
+.pdf-preview dd {
+  margin: 0;
+}
+
+.pdf-preview h2 {
+  margin-bottom: 2mm;
+  color: var(--pdf-muted);
+  font-size: 8pt;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Header */
+
+.pdf-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding-bottom: 8mm;
+  border-bottom: 2px solid var(--pdf-accent);
+}
+
+.pdf-header .logo {
+  max-width: 48mm;
+  max-height: 16mm;
+}
+
+.pdf-header .logo-text {
+  font-size: 14pt;
+  font-weight: 700;
+}
+
+.pdf-header .title {
+  text-align: end;
+}
+
+.pdf-header h1 {
+  font-size: 20pt;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.pdf-header .number {
+  color: var(--pdf-muted);
+  font-size: 11pt;
+}
+
+/* Parties and dates */
+
+.pdf-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 8mm;
+  padding: 8mm 0;
+}
+
+.party-name {
+  font-weight: 600;
+}
+
+.tax-id {
+  margin-top: 1mm;
+  color: var(--pdf-muted);
+  font-size: 8.5pt;
+}
+
+.pdf-details .dates {
+  display: grid;
+  grid-template-columns: auto auto;
+  column-gap: 4mm;
+  row-gap: 1mm;
+  align-content: start;
+}
+
+.pdf-details .dates dt {
+  color: var(--pdf-muted);
+}
+
+.pdf-details .dates dd {
+  text-align: end;
+}
+
+/* Line items */
+
+.pdf-lines {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.pdf-lines th {
+  padding: 2mm 0;
+  border-bottom: 1px solid var(--pdf-ink);
+  color: var(--pdf-muted);
+  font-size: 8pt;
+  font-weight: 600;
+  text-align: start;
+  text-transform: uppercase;
+}
+
+.pdf-lines td {
+  padding: 2.5mm 0;
+  border-bottom: 1px solid var(--pdf-rule);
+  vertical-align: top;
+}
+
+.pdf-lines .num {
+  padding-inline-start: 4mm;
+  text-align: end;
+  white-space: nowrap;
+}
+
+.pdf-lines .description {
+  width: 100%;
+}
+
+/* Totals */
+
+.pdf-totals {
+  display: grid;
+  grid-template-columns: auto 32mm;
+  justify-content: end;
+  column-gap: 8mm;
+  row-gap: 1.5mm;
+  margin-top: 5mm;
+}
+
+.pdf-totals dt {
+  color: var(--pdf-muted);
+}
+
+.pdf-totals dd {
+  text-align: end;
+}
+
+.pdf-totals .grand {
+  padding-top: 2mm;
+  border-top: 1px solid var(--pdf-ink);
+  color: var(--pdf-ink);
+  font-size: 12pt;
+  font-weight: 700;
+}
+
+/* Payment */
+
+.pdf-payment {
+  margin-top: 10mm;
+  padding: 5mm;
+  border-radius: 2mm;
+  background: #f3f6f9;
+}
+
+.pdf-payment dl {
+  display: grid;
+  grid-template-columns: 24mm 1fr;
+  row-gap: 1mm;
+}
+
+.pdf-payment dt {
+  color: var(--pdf-muted);
+}
+
+.pdf-payment dd {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 9pt;
+}
+
+/* Footer */
+
+.pdf-footer {
+  margin-top: 12mm;
+  padding-top: 4mm;
+  border-top: 1px solid var(--pdf-rule);
+  color: var(--pdf-muted);
+  font-size: 8.5pt;
+}
+
+.pdf-footer .notes {
+  margin-top: 2mm;
+  white-space: pre-line;
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  .pdf-preview {
+    width: auto;
+    min-height: auto;
+    box-shadow: none;
+  }
+
+  .pdf-lines tr {
+    break-inside: avoid;
+  }
+
+  .pdf-payment,
+  .pdf-footer {
+    break-inside: avoid;
+  }
+}
